@@ -34,7 +34,7 @@ pipeline {
                 echo "Running Trivy security scan"
                 docker run --rm \
                 -v /var/run/docker.sock:/var/run/docker.sock \
-                aquasec/trivy image week9-app:v3
+                aquasec/trivy image --timeout 15m week9-app:v3
                 '''
             }
         }
