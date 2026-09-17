@@ -29,15 +29,19 @@ pipeline {
         }
 
         stage('Security Scan') {
-            steps {
-                sh '''
-                echo "Running Trivy security scan"
-                docker run --rm \
-                -v /var/run/docker.sock:/var/run/docker.sock \
-                aquasec/trivy image --timeout 15m week9-app:v3
-                '''
-            }
-        }
+    steps {
+        sh '''
+        echo "Running Trivy security scan"
+
+        docker run --rm \
+        -v /var/run/docker.sock:/var/run/docker.sock \
+        aquasec/trivy image \
+        --scanners vuln \
+        --timeout 15m \
+        week9-app:v3
+        '''
+    }
+}
 
         stage('Deploy') {
             steps {
